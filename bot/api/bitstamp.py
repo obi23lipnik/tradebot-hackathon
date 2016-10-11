@@ -1,10 +1,9 @@
-from urllib import request
 import requests
 import hmac
 import hashlib
 import time
 
-from ... tradebot import config
+from . import config
 
 def nonce():
 	return str(int(time.time()*1000))
@@ -23,26 +22,26 @@ class responder:
 		return response.readall().decode('utf-8')
 
 	def getTicker(type):
-		response = request.urlopen("https://www.bitstamp.net/api/v2/ticker/"+type+"/")
+		response = requests.get("https://www.bitstamp.net/api/v2/ticker/"+type+"/")
 		return response.text
 
 	def getHourlyTicker(type):
-		response = request.urlopen("https://www.bitstamp.net/api/v2/ticker_hour/"+type+"/")
+		response = requests.get("https://www.bitstamp.net/api/v2/ticker_hour/"+type+"/")
 		return response.text
 
 	def getOrderBook(type):
-		response = request.urlopen("https://www.bitstamp.net/api/v2/order_book/"+type+"/")
+		response = requests.get("https://www.bitstamp.net/api/v2/order_book/"+type+"/")
 		return response.text
 
 	def getTransactions(type, **kwargs):
 		if 'time' in kwargs:
-			response = request.urlopen("https://www.bitstamp.net/api/v2/transactions/"+type+"/",params={ "time" : kwargs["time"]})
+			response = requests.get("https://www.bitstamp.net/api/v2/transactions/"+type+"/",params={ "time" : kwargs["time"]})
 		else:
-			response = request.urlopen("https://www.bitstamp.net/api/v2/transactions/"+type+"/")
+			response = requests.get("https://www.bitstamp.net/api/v2/transactions/"+type+"/")
 		return response.text
 
 	def getConversion(type):
-		response = request.urlopen("https://www.bitstamp.net/api/"+type+"/")
+		response = requests.get("https://www.bitstamp.net/api/"+type+"/")
 		return response.text
 
 	def getAccBalance(self):

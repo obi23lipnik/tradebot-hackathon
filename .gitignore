@@ -61,3 +61,4 @@ test.ini
 # Sensitive configs #
 #####################
 tradebot/config.py
+bot/api/config.py
